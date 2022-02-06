@@ -19,7 +19,7 @@ locals {
 # Resource Group
 # -------------------------------------------------------------
 resource "azurerm_resource_group" "main" {
-  name     = "rg-${var.identifier}"
+  name     = "rg-${var.resource_group_name}"
   location = var.location
 }
 
@@ -36,11 +36,14 @@ data "archive_file" "function_app_code" {
 # Function App
 # -------------------------------------------------------------
 resource "azurerm_storage_account" "func" {
-  name                     = "st${var.identifier}fc"
-  resource_group_name      = azurerm_resource_group.main.name
-  location                 = azurerm_resource_group.main.location
+  name                     = "st${var.savalergtest}fc"
+  resource_group_name      = azurerm_resource_group.vale-rg-test.name
+  location                 = "${var.location}"
   account_tier             = "Standard"
   account_replication_type = "LRS"
+
+  tags = "${var.tags}"
+
 }
 
 resource "azurerm_storage_container" "function_app_code" {
